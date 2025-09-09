@@ -1,38 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-class Program
+namespace HW1
 {
-    static void Main()
+    class Program
     {
-        while (true)
+        static void Main(string[] args)
         {
-            Console.Write("\nEnter string: ");
-            string input = Console.ReadLine();
-
-            if (input == "*")
+            while (true)
             {
-                break; 
+                Console.Write("Enter a string: ");
+                string input = Console.ReadLine();
+
+                if (input == "*")
+                    break;
+
+                string reversed = "";
+                for (int i = input.Length - 1; i >= 0; i--)
+                {
+                    reversed += input[i];
+                }
+
+                bool isPalindrome = (input.ToLower() == reversed.ToLower());
+
+                Console.WriteLine();
+                Console.WriteLine($"{"Original String",-20}{"Reversed String",-25}{"Palindrome?"}");
+                Console.WriteLine($" {input,-20}{reversed.ToLower(),-25}{(isPalindrome ? "Yes" : "No")}");
+                Console.WriteLine();
+
             }
 
-            string lowerInput = input.ToLower();
-            string reversed = "";
+            Console.WriteLine();
 
-            
-            for (int i = lowerInput.Length - 1; i >= 0; i--)
-            {
-                reversed += lowerInput[i];
-            }
-
-   
-            string palindrome = (lowerInput == reversed) ? "Yes" : "No";
-
-          
-            Console.WriteLine("\n{0,-25}{1,-25}{2,-15}",
-                "Original String", "Reversed String", "Palindrome?");
-
-           
-            Console.WriteLine("{0,-25}{1,-25}{2,-15}",
-                input, reversed, palindrome);
         }
     }
 }
