@@ -1,80 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-class Program
+namespace C_HW_1
 {
-    static void Main()
+    class Program
     {
-        int rows = ReadInt("Enter row: ");
-        int cols = ReadInt("Enter col: ");
-
-        List<List<double>> numbers = InputMatrix(rows, cols);
-
-        Console.WriteLine("\nThe numbers are:");
-        PrintMatrix(numbers);
-
-        double sum = ComputeSum(numbers);
-        int count = rows * cols;
-        double average = sum / count;
-
-        Console.WriteLine($"\nSum: {sum:0.0}  ; Average: {average:0.0}");
-    }
-
-   
-    static List<List<double>> InputMatrix(int rows, int cols)
-    {
-        List<List<double>> matrix = new List<List<double>>();
-
-        for (int i = 0; i < rows; i++)
+        static void Main(string[] args)
         {
-            Console.WriteLine($"\nRow {i + 1}");
-            List<double> row = new List<double>();
+            Console.Write("Enter row: ");
+            int rows = int.Parse(Console.ReadLine());
 
-            for (int j = 0; j < cols; j++)
+            Console.Write("Enter col: ");
+            int cols = int.Parse(Console.ReadLine());
+
+            List<List<double>> numbers = new List<List<double>>();
+
+            for (int i = 0; i < rows; i++)
             {
-                double value = ReadDouble($"Enter number{j + 1}: ");
-                row.Add(value);
+                Console.WriteLine($"Row {i + 1}");
+                List<double> rowList = new List<double>();
+
+                for (int j = 0; j < cols; j++)
+                {
+                    Console.Write($"Enter number{j + 1}: ");
+                    double num = double.Parse(Console.ReadLine());
+                    rowList.Add(num);
+                }
+
+                numbers.Add(rowList);
             }
 
-            matrix.Add(row);
+            Console.WriteLine("\nThe numbers are:");
+            double sum = 0;
+            int count = 0;
+
+            foreach (var row in numbers)
+            {
+                foreach (var num in row)
+                {
+                    Console.Write(num.ToString("0.0") + " ");
+                    sum += num;
+                    count++;
+                }
+                Console.WriteLine();
+            }
+
+            double average = sum / count;
+            Console.WriteLine($"\nSum: {sum:0.0} ; Average: {average:0.0}");
+
+            Console.WriteLine("");
+            Console.ReadKey();
         }
-
-        return matrix;
-    }
-
-    
-    static void PrintMatrix(List<List<double>> matrix)
-    {
-        foreach (var row in matrix)
-        {
-            foreach (var val in row)
-                Console.Write(val.ToString("0.0") + " ");
-            Console.WriteLine();
-        }
-    }
-
- 
-    static double ComputeSum(List<List<double>> matrix)
-    {
-        double sum = 0;
-        foreach (var row in matrix)
-            foreach (var val in row)
-                sum += val;
-        return sum;
-    }
-
-    
-    static int ReadInt(string message)
-    {
-        Console.Write(message);
-        return int.Parse(Console.ReadLine());
-    }
-
-    
-    static double ReadDouble(string message)
-    {
-        Console.Write(message);
-        return double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
     }
 }
